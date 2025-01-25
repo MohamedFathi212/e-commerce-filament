@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\OrderItem;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

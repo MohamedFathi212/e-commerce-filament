@@ -6,9 +6,7 @@ use App\Filament\Resources\BrandResource\Pages;
 use App\Filament\Resources\BrandResource\Pages\CreateBrand;
 use App\Filament\Resources\BrandResource\Pages\EditBrand;
 use App\Filament\Resources\BrandResource\Pages\ListBrands;
-use App\Filament\Resources\BrandResource\RelationManagers;
 use App\Models\Brand;
-use Filament\Actions\ViewAction;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
@@ -16,18 +14,14 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
-use Filament\Forms\Set;
-use Filament\Pages\Actions\DeleteAction;
-use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
 class BrandResource extends Resource
@@ -46,8 +40,8 @@ class BrandResource extends Resource
                             TextInput::make('name')
                                 ->required()
                                 ->maxLength(255)
-                                ->live(onBlur:true)
-                                ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation
+                                ->live(onBlur: true)
+                                ->afterStateUpdated(fn (string $operation, $state, $set) => $operation
                                     === 'create' ? $set('slug', Str::slug($state)) : null),
 
                             TextInput::make('slug')
@@ -60,7 +54,7 @@ class BrandResource extends Resource
 
                     FileUpload::make('iamge')
                         ->image()
-                        ->directory('categories'),
+                        ->directory('brands'),
 
                     Toggle::make('is_active')
                         ->required()
@@ -76,17 +70,23 @@ class BrandResource extends Resource
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('iamge'),
+
+                // عرض الصورة
+                ImageColumn::make('iamge')
+                    ->label('Image')
+                    ->disk('public'),   
 
                 TextColumn::make('slug')
                     ->searchable(),
 
                 IconColumn::make('is_active')
                     ->boolean(),
+
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

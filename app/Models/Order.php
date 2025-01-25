@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Address;
+use App\Models\OrderItem;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,20 +24,20 @@ class Order extends Model
     ];
 
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
     public function items()
     {
-        return $this->belongsTo(OrderItem::class);
+        return $this->hasMany(OrderItem::class);
     }
 
 
     public function addresss()
     {
-        return $this->belongsTo(Address::class);
+        return $this->hasOne(Address::class);
     }
 
 }
