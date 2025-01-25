@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
+use App\Filament\Resources\OrderResource\RelationManagers\AddressRelationManager;
 use App\Models\Order;
 use App\Models\Product;
 use Filament\Forms;
@@ -177,54 +178,57 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('user.name')
-                ->label('Customer')
-                ->sortable()
-                ->searchable(),
+                    ->label('Customer')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('grand_total')
-                ->numeric()
-                ->sortable()
-                ->money('EGY'),
+                    ->numeric()
+                    ->sortable()
+                    ->money('EGY'),
 
-                TextColumn::make('payment_method')                ->sortable()
-                ->searchable()
-                ->sortable(),
+                TextColumn::make('payment_method')->sortable()
+                    ->searchable()
+                    ->sortable(),
 
                 TextColumn::make('payment_status')
-                ->sortable()
-                ->searchable(),
+                    ->sortable()
+                    ->searchable(),
 
                 TextColumn::make('currency')
-                ->sortable()
-                ->searchable(),
+                    ->sortable()
+                    ->searchable(),
 
                 TextColumn::make('shipping_method')
-                ->sortable()
-                ->searchable(),
+                    ->sortable()
+                    ->searchable(),
 
                 SelectColumn::make('status')
-                ->options([
-                    'new' => 'New',
-                    'processing' => 'Processing',
-                    'shipped' => 'Shipped',
-                    'delivered' => 'Delivered',
-                    'cancelled' => 'Cancelled',
-                ])
-                ->searchable()
-                ->sortable(),
+                    ->options([
+                        'new' => 'New',
+                        'processing' => 'Processing',
+                        'shipped' => 'Shipped',
+                        'delivered' => 'Delivered',
+                        'cancelled' => 'Cancelled',
+                    ])
+                    ->searchable()
+                    ->sortable(),
 
 
                 Tables\Columns\TextColumn::make('created_at')
-                ->dateTime()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
 
-            Tables\Columns\TextColumn::make('updated_at')
-                ->dateTime()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
             ])
+
+
+
             ->filters([
                 // أضف الفلاتر إذا لزم الأمر
             ])
@@ -246,7 +250,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            // أضف العلاقات إذا لزم الأمر
+            AddressRelationManager::class
         ];
     }
 
