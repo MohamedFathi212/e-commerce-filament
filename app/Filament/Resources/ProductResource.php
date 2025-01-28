@@ -37,6 +37,10 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
+    protected static ?int $navigationSort = 4;
+
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -96,7 +100,7 @@ class ProductResource extends Resource
                             ->preload()
                             ->relationship('brand', 'name')
                     ]),
-                    
+
                     Section::make('status')->schema(([
                         Toggle::make('is_stock')
                             ->required()
@@ -109,12 +113,12 @@ class ProductResource extends Resource
                         Toggle::make('is_featured')
                             ->required()
                             ->default(true),
-                            
+
 
                         Toggle::make('is_sale')
                             ->required()
                             ->default(true),
-                            
+
                     ]))
                 ])->columnSpan(1),
 
@@ -154,7 +158,7 @@ class ProductResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                    
+
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

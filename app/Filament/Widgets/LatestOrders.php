@@ -1,39 +1,32 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\RelationManagers;
+namespace App\Filament\Widgets;
 
 use App\Filament\Resources\OrderResource;
 use App\Models\Order;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Widgets\TableWidget as BaseWidget;
 
-class OrdersRelationManager extends RelationManager
+class LatestOrders extends BaseWidget
 {
-    protected static string $relationship = 'orders';
-
-    public function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-            ]);
-    }
+    protected int | string | array $columnSpan = 'full';
+    protected static ?int $sort = 2;
 
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('id')
+            ->query(OrderResource::getEloquentQuery())
+            ->defaultPaginationPageOption(5)
+            ->defaultSort('created_at', 'desc') // إصلاح الخطأ هنا
             ->columns([
                 TextColumn::make('id')
                     ->label('Order Id')
                     ->searchable(),
+
+                TextColumn::make('user.name'),
 
                 TextColumn::make('grand_total')
                     ->money('EGY'),
@@ -69,21 +62,11 @@ class OrdersRelationManager extends RelationManager
                     ->label('Order Date')
                     ->dateTime(),
             ])
-            ->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])
             ->actions([
                 Action::make('View Order')
                     ->url(fn(Order $record): string => OrderResource::getUrl('view', ['record' => $record]))
                     ->color('info')
                     ->icon(icon: 'heroicon-o-eye'),
-
-                Tables\Actions\DeleteAction::make()
-                    ->visible(fn(Order $record): bool => true), // تأكد من أن الزر مرئي
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 }
-
