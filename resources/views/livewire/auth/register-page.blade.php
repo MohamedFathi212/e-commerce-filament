@@ -7,7 +7,7 @@
               <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Sign up</h1>
               <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                 Already have an account?
-                <a class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/login">
+                <a wire:navigate class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/login">
                   Sign in here
                 </a>
               </p>
@@ -17,7 +17,7 @@
             <form>
               <div class="grid gap-y-4">
                 <!-- Form Group -->
-  
+
                 <div>
                   <label for="name" class="block text-sm mb-2 dark:text-white">Name</label>
                   <div class="relative">
@@ -30,7 +30,7 @@
                   </div>
                   <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p>
                 </div>
-  
+
                 <div>
                   <label for="email" class="block text-sm mb-2 dark:text-white">Email address</label>
                   <div class="relative">
@@ -44,12 +44,12 @@
                   <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p>
                 </div>
                 <!-- End Form Group -->
-  
+
                 <!-- Form Group -->
                 <div>
                   <div class="flex justify-between items-center">
                     <label for="password" class="block text-sm mb-2 dark:text-white">Password</label>
-  
+
                   </div>
                   <div class="relative">
                     <input type="password" id="password" name="password" class="py-3 border px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required aria-describedby="password-error">
@@ -62,8 +62,8 @@
                   <p class="hidden text-xs text-red-600 mt-2" id="password-error">8+ characters required</p>
                 </div>
                 <!-- End Form Group -->
-  
-  
+
+
                 <button type="submit" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Sign up</button>
               </div>
             </form>

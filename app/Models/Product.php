@@ -17,6 +17,7 @@ class Product extends Model
         'brand_id',
         'name',
         'slug',
+        'images',
         'description',
         'price',
         'is_active',
@@ -25,11 +26,10 @@ class Product extends Model
         'is_sale',
     ];
 
-    protected $casts=[
-        'images' =>'array',
+    protected $casts = [
+        'images' => 'array',
     ];
-
-    public function brand()
+        public function brand()
     {
         return $this->belongsTo(Brand::class);
     }
@@ -38,6 +38,7 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
 
     public function orderitem()
     {
