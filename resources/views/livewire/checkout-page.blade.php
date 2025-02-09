@@ -2,8 +2,8 @@
 	<h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">
 		Checkout
 	</h1>
-    <form wire:submit.prevent = 'placeOrder'>
-        <div class="grid grid-cols-12 gap-4">
+    <form wire:submit.prevent='placeOrder'>
+         <div class="grid grid-cols-12 gap-4">
             <div class="md:col-span-12 lg:col-span-8 col-span-12">
                 <!-- Card -->
                 <div class="bg-white rounded-xl shadow p-4 sm:p-7 dark:bg-slate-900">
@@ -51,14 +51,13 @@
                             <label class="block text-gray-700 dark:text-white mb-1" for="address">
                                 Address
                             </label>
-                            <input wire:model='address'  class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="address" type="text">
+                            <input wire:model='street_address'  class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="address" type="text">
                             </input>
-                            @error('address')
+                            @error('street_address')
                             <div class="text-red-500 text-sm">{{ $message }}</div>
                             @enderror
-
-
                         </div>
+
                         <div class="mt-4">
                             <label class="block text-gray-700 dark:text-white mb-1" for="city">
                                 City
@@ -143,7 +142,7 @@
                             Subtotal
                         </span>
                         <span>
-                            {{ Number::currency($grand_total,'EGY') }}
+                            {{ number_format($grand_total, 2) }} EGY
                         </span>
                     </div>
                     <div class="flex justify-between mb-2 font-bold">
@@ -168,7 +167,7 @@
                             Grand Total
                         </span>
                         <span>
-                            {{ Number::currency($grand_total,'EGY') }}
+                            {{ number_format($grand_total, 2) }} EGY
                         </span>
                     </div>
                     </hr>
